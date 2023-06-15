@@ -395,4 +395,105 @@ These additional examples cover various scenarios such as retrieving user inform
 
 Please refer to the API documentation or code comments for more detailed information about the available queries, mutations, and their respective arguments.
 
+## Data Structure
+
+Here's an example of how you can structure the models and schemas using Prisma with TypeScript for the GraphQL-based voting system:
+
+Install Prisma:
+
+```shell
+npm install prisma --save-dev
+npx prisma init
+```
+
+Define the Models:
+
+In your Prisma schema file (schema.prisma), define the models for the voting system:
+
+```prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  votes     Vote[]
+}
+
+model Vote {
+  id          Int       @id @default(autoincrement())
+  title       String
+  startDate   DateTime
+  endDate     DateTime
+  questions   Question[]
+  applications Application[]
+}
+
+model Question {
+  id      Int    @id @default(autoincrement())
+  text    String
+  voteId  Int
+  vote    Vote   @relation(fields: [voteId], references: [id])
+}
+
+model Application {
+  id          Int         @id @default(autoincrement())
+  voteId      Int
+  userId      Int
+  vote        Vote        @relation(fields: [voteId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  answers     Answer[]
+}
+
+model Answer {
+  id          Int       @id @default(autoincrement())
+  questionId  Int
+  applicationId Int
+  question    Question  @relation(fields: [questionId], references: [id])
+  application Application @relation(fields: [applicationId], references: [id])
+  answer      String
+}
+```
+
+Generate Prisma Client:
+Run the following command to generate the Prisma Client:
+
+```shell
+npx prisma generate
+```
+
+Use Prisma Client in TypeScript:
+
+In your TypeScript files, you can import and use the generated Prisma Client to interact with the database. For example:
+
+```typescript
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+async function getUserVotes(userId: number) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { votes: true },
+  });
+  return user.votes;
+}
+
+async function createVote(title: string, startDate: Date, endDate: Date) {
+  const vote = await prisma.vote.create({
+    data: {
+      title,
+      startDate,
+      endDate,
+    },
+  });
+  return vote;
+}
+
+// ... other functions using Prisma Client ...
+
+export { getUserVotes, createVote };
+```
+
+Make sure to import the PrismaClient from @prisma/client and create an instance of it (prisma) to use the various Prisma methods for CRUD operations.
+
 Copyright 2023, Max Base

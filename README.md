@@ -135,6 +135,187 @@ mutation {
 }
 ```
 
+**Get List of Votes:**
+
+```graphql
+query {
+  votes {
+    id
+    title
+    startDate
+    endDate
+    questions {
+      id
+      text
+    }
+  }
+}
+```
+
+**List of Applications (Admin Only):**
+
+```graphql
+query {
+  applications {
+    id
+    vote {
+      id
+      title
+    }
+    user {
+      id
+      username
+    }
+    answers {
+      id
+      question {
+        id
+        text
+      }
+      answer
+    }
+  }
+}
+```
+
+**Get List of All Votes (Admin Only):**
+
+```graphql
+query {
+  allVotes {
+    id
+    title
+    startDate
+    endDate
+    questions {
+      id
+      text
+    }
+  }
+}
+```
+
+**View Answers for a Specific Question (Admin Only):**
+
+```graphql
+query {
+  questionAnswers(questionId: "question_id") {
+    id
+    user {
+      id
+      username
+    }
+    answer
+  }
+}
+```
+
+### Mutations
+
+**User Registration:**
+
+```graphql
+mutation {
+  registerUser(username: "example_user", password: "password") {
+    id
+    username
+  }
+}
+```
+
+**User Login:**
+
+```graphql
+mutation {
+  loginUser(username: "example_user", password: "password") {
+    token
+    user {
+      id
+      username
+    }
+  }
+}
+```
+
+**Attend to a Vote:**
+
+```graphql
+mutation {
+  attendVote(voteId: "vote_id") {
+    id
+    title
+    startDate
+  }
+}
+```
+
+**Submit Answer:**
+
+```graphql
+mutation {
+  submitAnswer(
+    voteId: "vote_id"
+    questionId: "question_id"
+    answer: "example_answer"
+  ) {
+    id
+    text
+    answer
+  }
+}
+```
+
+**Create a New Vote (Admin Only):**
+
+```graphql
+mutation {
+  createVote(title: "New Vote", startDate: "2023-06-15T10:00:00Z", endDate: "2023-06-20T18:00:00Z") {
+    id
+    title
+    startDate
+    endDate
+  }
+}
+```
+
+**Add New Question to a Vote (Admin Only):**
+
+```graphql
+mutation {
+  addQuestion(voteId: "vote_id", text: "New Question") {
+    id
+    text
+  }
+}
+```
+
+**Edit a Question (Admin Only):**
+
+```graphql
+mutation {
+  editQuestion(questionId: "question_id", text: "Updated Question") {
+    id
+    text
+  }
+}
+```
+
+**Delete a Question (Admin Only):**
+
+```graphql
+mutation {
+  deleteQuestion(questionId: "question_id") {
+    id
+    text
+  }
+}
+```
+
 Please refer to the API documentation or code comments for more detailed information about the available queries, mutations, and their respective arguments.
+
+## Examples
+
+
+
 
 Copyright 2023, Max Base

@@ -311,11 +311,88 @@ mutation {
 }
 ```
 
+**Get User Information:**
+
+```graphql
+query {
+  user {
+    id
+    username
+    votes {
+      id
+      title
+    }
+  }
+}
+```
+
+**Get Vote Details:**
+
+```graphql
+query {
+  vote(voteId: "vote_id") {
+    id
+    title
+    startDate
+    endDate
+    questions {
+      id
+      text
+    }
+  }
+}
+```
+
+**Create Admin User (Admin Only):**
+
+```graphql
+mutation {
+  createAdminUser(username: "admin_user", password: "admin_password") {
+    id
+    username
+    isAdmin
+  }
+}
+```
+
+**Delete Vote (Admin Only):**
+
+```graphql
+mutation {
+  deleteVote(voteId: "vote_id") {
+    id
+    title
+  }
+}
+```
+
+**Change Answer (For Modifiable Votes):**
+
+```graphql
+mutation {
+  changeAnswer(voteId: "vote_id", questionId: "question_id", answer: "new_answer") {
+    id
+    text
+    answer
+  }
+}
+```
+
+**Change Answer (For Non-Modifiable Votes):**
+
+```graphql
+mutation {
+  changeAnswer(voteId: "vote_id", questionId: "question_id", answer: "new_answer") {
+    id
+    text
+    answer
+    isModifiable
+  }
+}
+```
+
+These additional examples cover various scenarios such as retrieving user information, obtaining vote details, creating an admin user, deleting a vote, and changing answers for both modifiable and non-modifiable votes. Remember to replace the placeholder values such as vote_id and question_id with the actual IDs of the votes and questions you want to interact with.
+
 Please refer to the API documentation or code comments for more detailed information about the available queries, mutations, and their respective arguments.
-
-## Examples
-
-
-
 
 Copyright 2023, Max Base

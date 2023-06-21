@@ -1,0 +1,9 @@
+PORT=8000
+URL=http://localhost:8000/
+
+# Database MySql
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=
+DB_PORT=3306
+DB_NAME=Asmon

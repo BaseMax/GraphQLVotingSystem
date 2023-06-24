@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	r := setupRouter()
+	r := setupApiRouter()
 	r.Run(":8080")
 	fmt.Println("hi projeact")
 }

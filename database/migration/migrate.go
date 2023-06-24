@@ -1,8 +1,8 @@
-package main
+package migration
 
 import (
-		"GraphQLVotingSystem/Config"
-		"GraphQLVotingSystem/App/models"
+	"github.com/KhaleghiDev/GraphQLVotingSystem/Config"
+	"github.com/KhaleghiDev/GraphQLVotingSystem/app/models"
 )
 
 func init() {
@@ -10,6 +10,6 @@ func init() {
 	Config.ConectToDb()
 }
 func main() {
-	Config.DB.AutoMigrate(&models.User{})
+	Config.DB.AutoMigrate(&models.Users{})
 
 }

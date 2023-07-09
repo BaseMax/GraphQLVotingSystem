@@ -57,7 +57,7 @@ func CreateCategory(c *gin.Context) {
 }
 
 // update data category
-func updateCategory(c *gin.Context) {
+func UpdateCategory(c *gin.Context) {
 
 	id := c.Param("id")
 

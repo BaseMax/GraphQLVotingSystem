@@ -19,6 +19,11 @@ func setupApiRouter() *gin.Engine {
 	categories.GET("/",api.AllCategory)
 	categories.GET("/:id",api.ShowCategory)
 	categories.POST("/",api.CreateCategory)
-	categories.POST("/:id",api.AllCategory)
+	categories.POST("/:id",api.UpdateCategory)
+	//users api 
+	auth := v1.Group("/users/auth")
+	auth.POST("/login",api.LoginUser)
+	auth.POST("/register",api.RegisterUser)
+
 	return r
 }

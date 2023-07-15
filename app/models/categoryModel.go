@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Categories struct {
+type Catygory struct {
 	gorm.Model
 	Title string `json:"title"`
 	Parint_id uint `json:"parint_id"`

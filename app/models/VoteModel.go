@@ -6,11 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Vote struct{
+type Vote struct {
 	gorm.Model
-	Title       string
-	StartDate    time.Time
-	EndDate      time.Time
-	Questions   Question
-	Applications Application
-  }
+	Title          string
+	StartDate      time.Time
+	EndDate        time.Time
+	Questions      Question
+	Application_id uint32
+}

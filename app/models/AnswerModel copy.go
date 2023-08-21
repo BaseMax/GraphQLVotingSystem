@@ -7,6 +7,6 @@ type Answer struct {
 	questionId  uint32
 	applicationId uint32
 	Question    Question  
-	Application Application
-	Answer      String
+	Application_id uint32
+	Answer_id      uint32
 }

@@ -4,11 +4,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Application struct{
+type Applications struct {
 	gorm.Model
-	VoteId      uint32
-	UserId      uint32
-	Vote        Vote     
-	User        User     
-	Answers     Answer
-  }
+	Vote_id uint32
+	User_id uint32
+	Vote    Vote
+	User    User
+	Answers Answer
+}

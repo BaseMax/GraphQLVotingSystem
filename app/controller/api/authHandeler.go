@@ -3,48 +3,31 @@ package api
 import (
 	"fmt"
 
+	"github.com/KhaleghiDev/GraphQLVotingSystem/Config"
+	"github.com/KhaleghiDev/GraphQLVotingSystem/app/models"
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	Config.LoadEnvVarables()
+	Config.ConectToDb()
+}
 
 // Login User
 func LoginUser(c *gin.Context) {
 
-	user := c.Param("email")
-	pass := c.Param("password")
-	if (user == nil) && (pass == nil) {
-		fmt.Println("Time for work")
+	username := c.Param("email")
+	password := c.Param("password")
+	if username == "" || password == "" {
+		fmt.Println("نام کاربری و رمز عبور را وارد نکردید .")
 	}
-		// Check if username and password are provided
-		if user == "" || pass == "" {
-			fmt.Println("Please provide both username and password.")
-			return
-		}
-	
-		// Establish a database connection
-		db, err := sql.Open("mysql", "username:password@tcp(hostname:port)/database")
-		if err != nil {
-			fmt.Println("Failed to connect to the database:", err)
-			return
-		}
-		defer db.Close()
-	
-		// Query the database to check the credentials
-		query := "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?"
-		var count int
-		err = db.QueryRow(query, user, pass).Scan(&count)
-		if err != nil {
-			fmt.Println("Error executing query:", err)
-			return
-		}
-	
-		// Check if the username and password are valid
-		if count > 0 {
-			fmt.Println("Login successful!")
-		} else {
-			fmt.Println("Invalid username or password.")
-		}
-	
-
+	var user models.User
+	Config.DB.Where("Username:? AND Password:?", username, password).First(&user)
+	c.JSON(200, gin.H{
+		"status":  true,
+		"message": "show data id : ",
+		"data":    user,
+	})
 }
 
 // Register User

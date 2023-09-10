@@ -2,7 +2,6 @@ package Config
 
 import (
 	"log"
-
 	"github.com/joho/godotenv"
 )
 
